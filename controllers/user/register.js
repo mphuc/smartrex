@@ -28,7 +28,7 @@ const generateDataUpdate = function (authyId , secret , sponsor, callback){
 	getSponsor(sponsor , function(id_sponsor){
 		callback({
 			$set: {
-				'active_email' : 0,
+				'active_email' : 1,
 				'security.two_factor_auth.code': authyId,
 		        'security.two_factor_auth.status': 0,
 		        'security.two_factor_auth.secret': secret,
