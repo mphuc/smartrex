@@ -1,0 +1,283 @@
+<div class="content exchange-dashboard">
+   <div class="container carousel">
+      <div class="hidden-xs">
+         <div class="connected-carousels">
+            <div class="stage">
+               <div class="carousel carousel-stage">
+                  <div data-bind="template: { name: function() { return carousel.isSetCurrentSummary() ? 'carouselGeneral' : 'carouselCrowdfund'; }, data: $data }">
+                     <div data-bind="if: carousel.isSetCurrentSummary()">
+                        <div class="text-overlay" data-bind="with: carousel.currentSummary">
+                           <div>
+                              <div class="img-wrapper">
+                                 <img  style="height: 100%; width: 180px; margin-top: 30px;" src="/assets/img/logo.png" alt="Coin" class="">
+                              </div>
+                              <div class="title" >SFCCOIN (SFCC)</div>
+                              <div class="subtitle-price">Last Price:</div>
+                              <div class="price" >{{satoshi change_btc_sfcc.last}} BTC</div>
+                              <div class="subtitle-volume">24hr Volume:</div>
+                              <div class="volume" >{{satoshi change_btc_sfcc.volume}} BTC</div>
+                           </div>
+                        </div>
+                        <div class="tick-chart" id="divTickChart">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="navigation">
+               <div class="carousel carousel-navigation" data-jcarousel="true" data-jcarouselautoscroll="true">
+                  <ul data-bind="foreach:carousel.markets" style="left: 0px; top: 0px;">
+                     <li>
+                        <div class="item" data-bind="click: clickEntry">
+                            <img  height="80" src="/assets/img/logo.png" alt="Coin" class="">
+                           
+                           <div class="title" >Top Volume</div>
+                           <div class="name" >SFCCOIN (SFCC)</div>
+                           <div class="volume" >{{satoshi change_btc_sfcc.volume}} BTC</div>
+                           <div class="changed" >
+                           {{#if_eq change_btc_sfcc.up_down 'up'}} 
+                              
+                                + {{change_btc_sfcc.percent}} 
+                             
+                           {{else}}
+                             
+                                - {{change_btc_sfcc.percent}}
+                              
+                           {{/if_eq}}%</div>
+                           <div class="marketName" >BTC-SFCC</div>
+                        </div>
+                     </li>
+                     <li style="opacity: 0.5">
+                        <div class="item" data-bind="click: clickEntry">
+                           <img data-bind="attr: { src: imgPath(), alt: marketCurrency() }" width="80" height="80" onerror="this.src = '/Content/img/symbols/BTC.png'" src="https://bittrexblobstorage.blob.core.windows.net/public/7cf275d8-b553-4244-8dbf-42c328f44e93.png" alt="ZCL">
+                           <div class="title" data-bind="text: carouselType()">Biggest % Gain</div>
+                           <div class="name" data-bind="text: marketCurrencyName() + ' (' + marketCurrency() + ')'">Zclassic (ZCL)</div>
+                           <div class="volume" data-bind="text: displayBaseVolume() + ' ' + baseCurrency()">3346.76 BTC</div>
+                           <div class="changed" data-bind="text: displayChange()">70.3%</div>
+                           <div class="marketName" data-bind="text: marketName()">BTC-ZCL</div>
+                        </div>
+                     </li>
+                     <li style="opacity: 0.5">
+                        <div class="item" data-bind="click: clickEntry">
+                           <img data-bind="attr: { src: imgPath(), alt: marketCurrency() }" width="80" height="80" onerror="this.src = '/Content/img/symbols/BTC.png'" src="https://bittrexblobstorage.blob.core.windows.net/public/986a5ad2-5231-44d2-8fb8-32ad629e2709.png" alt="DCT">
+                           <div class="title" data-bind="text: carouselType()">Biggest % Gain</div>
+                           <div class="name" data-bind="text: marketCurrencyName() + ' (' + marketCurrency() + ')'">DECENT (DCT)</div>
+                           <div class="volume" data-bind="text: displayBaseVolume() + ' ' + baseCurrency()">2225.11 BTC</div>
+                           <div class="changed" data-bind="text: displayChange()">65.6%</div>
+                           <div class="marketName" data-bind="text: marketName()">BTC-DCT</div>
+                        </div>
+                     </li>
+                     <li style="opacity: 0.5">
+                        <div class="item" data-bind="click: clickEntry">
+                           <img data-bind="attr: { src: imgPath(), alt: marketCurrency() }" width="80" height="80" onerror="this.src = '/Content/img/symbols/BTC.png'" src="https://bittrexblobstorage.blob.core.windows.net/public/8101e36e-bfce-48a9-a7a6-368b6e9452dd.png" alt="XRP">
+                           <div class="title" data-bind="text: carouselType()">Top Volume</div>
+                           <div class="name" data-bind="text: marketCurrencyName() + ' (' + marketCurrency() + ')'">Ripple (XRP)</div>
+                           <div class="volume" data-bind="text: displayBaseVolume() + ' ' + baseCurrency()">13164.10 BTC</div>
+                           <div class="changed" data-bind="text: displayChange()">15.7%</div>
+                           <div class="marketName" data-bind="text: marketName()">BTC-XRP</div>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row featurette">
+         <div class="col-md-12" data-bind="with: btcTable">
+            <div class="row" style="margin-bottom:5px">
+               <div class="col-xs-6">
+                  <h2 class="featurette-heading top-header" style="padding: 0px; margin-top: 30px;float: left;">
+                     <span class="hidden-xs" data-bind="text: title"></span><span style="float: left; padding-top:4px;margin-top: 30px;"><i data-bind="css: icon" class="visible-xs cc BTC"></i></span> <span>Markets</span>
+                  </h2>
+               </div>
+               
+            </div>
+            <table class="table table-striped table-hover table-condensed table-bordered" style="table-layout: fixed; margin-left: 0px; width: 100%;">
+               <thead>
+                  <tr data-bind="foreach: columns">
+                     <th data-bind="css: headerClass" class="col-header">
+                        <div class="sortable" data-bind="click: $parent.sortClick.bind(property)">
+                           <span data-bind="html: header">Market</span>&nbsp;<i data-bind="css: state"></i>
+                        </div>
+                     </th>
+                     
+                     <th data-bind="css: headerClass" class="col-header">
+                        <div class="sortable" data-bind="click: $parent.sortClick.bind(property)">
+                           <span data-bind="html: header">Volume</span>&nbsp;<i data-bind="css: state" class="fa fa-arrow-down"></i>
+                        </div>
+                     </th>
+                     <th data-bind="css: headerClass" class="col-header">
+                        <div class="sortable" data-bind="click: $parent.sortClick.bind(property)">
+                           <span data-bind="html: header">% Change</span>&nbsp;<i data-bind="css: state"></i>
+                        </div>
+                     </th>
+                     <th data-bind="css: headerClass" class="col-header">
+                        <div class="sortable" data-bind="click: $parent.sortClick.bind(property)">
+                           <span data-bind="html: header">Last Price</span>&nbsp;<i data-bind="css: state"></i>
+                        </div>
+                     </th>
+                     <th data-bind="css: headerClass" class="col-header visible-lg visible-md">
+                        <div class="sortable" data-bind="click: $parent.sortClick.bind(property)">
+                           <span data-bind="html: header">24Hr High</span>&nbsp;<i data-bind="css: state"></i>
+                        </div>
+                     </th>
+                     <th data-bind="css: headerClass" class="col-header visible-lg visible-md">
+                        <div class="sortable" data-bind="click: $parent.sortClick.bind(property)">
+                           <span data-bind="html: header">24Hr Low</span>&nbsp;<i data-bind="css: state"></i>
+                        </div>
+                     </th>
+                     
+                     <th data-bind="css: headerClass" class="col-header visible-lg">
+                        <div class="sortable" data-bind="click: $parent.sortClick.bind(property)">
+                           <span data-bind="html: header">Added</span>&nbsp;<i data-bind="css: state"></i>
+                        </div>
+                     </th>
+                  </tr>
+               </thead>
+               <tbody data-bind="foreach: visibleSummaries">
+                    <tr>
+                     <td class="name">
+                        <a  href="/Market/Index/BTC-SFCC" title="SFCC">
+                        <span data-bind="text: marketName">BTC-SFCC</span>
+                        </a>
+                     </td>
+                     
+                     <td  class="number">{{satoshi change_btc_sfcc.volume}}</td>
+                     <td class="number">
+                        {{#if_eq change_btc_sfcc.up_down 'up'}} 
+                           <span class="dyn-td-up">
+                              {{change_btc_sfcc.percent}} % 
+                           </span>
+                        {{else}}
+                           <span class="dyn-td-down" >
+                              {{change_btc_sfcc.percent}} %
+                           </span>
+                        {{/if_eq}}
+
+                       
+                     </td>
+                     <td  class="number">{{satoshi change_btc_sfcc.last}}</td>
+                     <td  class="number visible-lg visible-md">{{satoshi change_btc_sfcc.hight}}</td>
+                     <td  class="number visible-lg visible-md">{{satoshi change_btc_sfcc.low}}</td>
+                     <td  class="date visible-lg">{{prettifyDates change_btc_sfcc.date}}</td>
+                    </tr>
+                    <tr>
+                        <td class="name">
+                        <a  href="#" title="SFCC">
+                        <span data-bind="text: marketName">BTG-SFCC</span>
+                        </a>
+                        </td>
+                        
+                        <td  class="number">0.00000000</td>
+                        <td class="number">
+                        <span  >0%</span>
+                        </td>
+                        <td  class="number">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="date visible-lg">Comming Soon</td>
+                  </tr>
+                  <tr>
+                        <td class="name">
+                        <a  href="#" title="SFCC">
+                        <span data-bind="text: marketName">BCH-SFCC</span>
+                        </a>
+                        </td>
+                        
+                        <td  class="number">0.00000000</td>
+                        <td class="number">
+                        <span  >0%</span>
+                        </td>
+                        <td  class="number">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="date visible-lg">Comming Soon</td>
+                  </tr>
+                  <tr>
+                        <td class="name">
+                        <a  href="#" title="SFCC">
+                        <span data-bind="text: marketName">ETH-SFCC</span>
+                        </a>
+                        </td>
+                        
+                        <td  class="number">0.00000000</td>
+                        <td class="number">
+                        <span  >0%</span>
+                        </td>
+                        <td  class="number">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="date visible-lg">Comming Soon</td>
+                  </tr>
+                  <tr>
+                        <td class="name">
+                        <a  href="#" title="SFCC">
+                        <span data-bind="text: marketName">BCC-SFCC</span>
+                        </a>
+                        </td>
+                        
+                        <td  class="number">0.00000000</td>
+                        <td class="number">
+                        <span  >0%</span>
+                        </td>
+                        <td  class="number">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="date visible-lg">Comming Soon</td>
+                  </tr>
+                  <tr>
+                        <td class="name">
+                        <a  href="#" title="SFCC">
+                        <span data-bind="text: marketName">LTC-SFCC</span>
+                        </a>
+                        </td>
+                        
+                        <td  class="number">0.00000000</td>
+                        <td class="number">
+                        <span  >0%</span>
+                        </td>
+                        <td  class="number">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="date visible-lg">Comming Soon</td>
+                  </tr>
+                  <tr>
+                        <td class="name">
+                        <a  href="#" title="SFCC">
+                        <span data-bind="text: marketName">DASH-SFCC</span>
+                        </a>
+                        </td>
+                        
+                        <td  class="number">0.00000000</td>
+                        <td class="number">
+                        <span  >0%</span>
+                        </td>
+                        <td  class="number">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="date visible-lg">Comming Soon</td>
+                  </tr>
+                  <tr>
+                        <td class="name">
+                        <a  href="#" title="SFCC">
+                        <span data-bind="text: marketName">B2X-SFCC</span>
+                        </a>
+                        </td>
+                        
+                        <td  class="number">0.00000000</td>
+                        <td class="number">
+                        <span  >0%</span>
+                        </td>
+                        <td  class="number">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="number visible-lg visible-md">0.00000000</td>
+                        <td  class="date visible-lg">Comming Soon</td>
+                  </tr>
+               </tbody>
+            </table>
+            
+          
+      
+      </div>
+   </div>
+</div>
